@@ -1,0 +1,24 @@
+{
+  "name": "SmartHomeApiClient",
+  "version": "0.0.1",
+  "description": "My private SmartHome API client",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GreenOlvi/smart-home-api-client-esp32"
+  },
+  "authors": [
+    {
+      "name": "Piotr Szulc",
+      "email": "piotr.szulc86@gmail.com",
+      "url": "https://github.com/GreenOlvi/",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/GreenOlvi/smart-home-api-client-esp32",
+  "dependencies": {
+    "ArduinoJson": "6.19.3"
+  },
+  "frameworks": "arduino",
+  "platforms": "espressif32"
+}
