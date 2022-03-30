@@ -52,3 +52,21 @@ bool SmartHomeApiClient::GetRelays(std::vector<Relay> *&relays)
 
     return true;
 }
+
+bool SmartHomeApiClient::ToggleRelay(const GUID id)
+{
+    _http.begin(_baseUrl + "relay/" + id + "/state");
+    _http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    auto code = _http.POST("value=toggle");
+
+    if (!code)
+    {
+        _http.end();
+        return false;
+    }
+
+    auto response = _http.getString();
+    _http.end();
+
+    return true;
+}

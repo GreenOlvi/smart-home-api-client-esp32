@@ -14,6 +14,7 @@ class SmartHomeApiClient
         ~SmartHomeApiClient();
 
         bool GetRelays(std::vector<Relay> *&relays);
+        bool ToggleRelay(const GUID id);
 
     private:
         String _baseUrl;
