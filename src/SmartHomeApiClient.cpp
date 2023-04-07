@@ -1,7 +1,7 @@
 #include "SmartHomeApiClient.h"
 
-SmartHomeApiClient::SmartHomeApiClient(const String baseUrl)
-    : _baseUrl(baseUrl), _http()
+SmartHomeApiClient::SmartHomeApiClient(WiFiClient &client, const String baseUrl)
+    : _client(client), _baseUrl(baseUrl), _http()
 {
 }
 
@@ -12,7 +12,7 @@ SmartHomeApiClient::~SmartHomeApiClient()
 
 bool SmartHomeApiClient::GetRelays(std::vector<Relay> *&relays)
 {
-    _http.begin(_baseUrl + "relay");
+    _http.begin(_client, _baseUrl + "relay");
 
     auto code = _http.GET();
     if (!code)
@@ -22,7 +22,7 @@ bool SmartHomeApiClient::GetRelays(std::vector<Relay> *&relays)
         return false;
     }
 
-    StaticJsonDocument<1024> doc;
+    StaticJsonDocument<2048> doc;
 
     String response = _http.getString();
     auto error = deserializeJson(doc, response);
@@ -55,7 +55,7 @@ bool SmartHomeApiClient::GetRelays(std::vector<Relay> *&relays)
 
 bool SmartHomeApiClient::ToggleRelay(const GUID id)
 {
-    _http.begin(_baseUrl + "relay/" + id + "/state");
+    _http.begin(_client, _baseUrl + "relay/" + id + "/state");
     _http.addHeader("Content-Type", "application/x-www-form-urlencoded");
     auto code = _http.POST("value=toggle");
 
